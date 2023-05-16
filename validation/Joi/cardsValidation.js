@@ -7,7 +7,11 @@ const createCardSchema = Joi.object({
   phone: Joi.string()
     .regex(new RegExp(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/))
     .required(),
-  email: Joi.string().regex(new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)),
+  email: Joi.string()
+    .regex(
+      new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)
+    )
+    .required(),
   web: Joi.string()
     .regex(
       new RegExp(
@@ -31,7 +35,7 @@ const createCardSchema = Joi.object({
     houseNumber: Joi.number().min(1).required(),
     zip: Joi.number().allow("", 0),
   }),
-  bizNumber: Joi.number().min(1000000).max(9999999).required(),
+  bizNumber: Joi.number().min(1000000).max(9999999).allow(""),
   user_id: Joi.string().hex().length(24),
 });
 
