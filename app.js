@@ -2,10 +2,15 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-var cors = require("cors");
+const cors = require("cors");
 const apiRouter = require("./routes/api");
+const config = require("config");
+const initialData = require("./initialData/initialData");
 
 const app = express();
+
+console.log("file", config.get("file"));
+// console.log("anotherKey", config.get("anotherKey"));
 
 app.use(cors());
 // app.use(
@@ -40,7 +45,7 @@ app.use(cookieParser());
 app.use("/admin", express.static(path.join(__dirname, "admin")));
 // app.use("/biz", express.static(path.join(__dirname, "biz")));
 // app.use("/regular", express.static(path.join(__dirname, "regular")));
-
+initialData();
 app.use("/api", apiRouter);
 app.use((req, res, next) => {
   res.status(404).json({ err: "page not found" });
